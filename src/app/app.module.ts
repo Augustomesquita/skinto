@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatCardModule, MatTableModule, MatTabsModule, MatIconModule } from '@angular/material';
+import { MatGridListModule, MatDialogModule, MatButtonModule, MatCardModule, MatTableModule, MatTabsModule, MatIconModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -18,13 +18,16 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     HomeRoutingModule,
     BrowserAnimationsModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatDialogModule,
     MatTableModule,
     MatCardModule,
     MatTabsModule,
     MatIconModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  exports: [MatTableModule, MatCardModule, MatTabsModule, MatIconModule],
+  exports: [MatGridListModule, MatButtonModule, MatDialogModule, MatTableModule, MatCardModule, MatTabsModule, MatIconModule],
   providers: [],
   bootstrap: [AppComponent]
 })

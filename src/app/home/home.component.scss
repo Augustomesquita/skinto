@@ -17,6 +17,43 @@ mat-tab {
     color: black
 }
 
+.outer {
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.mat-card {
+    background: rgb(99, 99, 99);
+}
+
+.mat-card.first-place {
+    border: 6px solid rgb(255, 238, 0);
+    border-radius: 5px;
+}
+
+.mat-card.second-place {
+    border: 6px solid rgb(177, 177, 177);
+    border-radius: 5px;
+}
+
+.mat-card.third-place {
+    border: 6px solid rgb(122, 55, 0);
+    border-radius: 5px;
+}
+
+.example-card {
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
 .mat-sort-header-container {
     margin-left: 18px;
 }
@@ -39,22 +76,31 @@ mat-tab {
 }
 
 .augusto-winning {
-    background: url("http://3.bp.blogspot.com/-q9R8ml6TsIE/Vm13Og-1lbI/AAAAAAAABQo/qONQEVB311o/s1600/Hecarim_0.jpg") repeat center center fixed;
+    background: url("http://3.bp.blogspot.com/-q9R8ml6TsIE/Vm13Og-1lbI/AAAAAAAABQo/qONQEVB311o/s1600/Hecarim_0.jpg") repeat center top;
 }
 
 .andre-winning {
-    background-image: url("https://4.bp.blogspot.com/-TWIlDHNDldw/XHRTEDIiecI/AAAAAAABPfI/v4ptrFXO7-U5NVJiWTACv5aj8IqnVYUqACLcBGAs/s1600/morganaloadscreen.kayle_rework.jpg");
-    background-repeat: repeat;
+    background: url("https://4.bp.blogspot.com/-TWIlDHNDldw/XHRTEDIiecI/AAAAAAABPfI/v4ptrFXO7-U5NVJiWTACv5aj8IqnVYUqACLcBGAs/s1600/morganaloadscreen.kayle_rework.jpg") repeat center top;
 }
 
 .alexandre-winning {
-    background-image: url("https://i.pinimg.com/originals/77/90/60/77906069eb5887bab94d97b38ddb1015.jpg");
-    background-repeat: repeat;
+    background: url("https://i.pinimg.com/originals/77/90/60/77906069eb5887bab94d97b38ddb1015.jpg") repeat center top;
 }
 
 .content-tab {
     height: 100vh;
     color: white;
     text-align: center;
-    padding-top: 3%;
+    padding: 3%;
+}
+
+.fab-button {
+    z-index: 5;
+    position: fixed;
+    display: flex;
+    align-self: flex-end;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 5%;
+    margin-right: 5%;
 }

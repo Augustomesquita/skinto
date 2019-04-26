@@ -1,12 +1,41 @@
-<div class="augusto-winning">
+<div [ngClass]="getWinnerClassName()">
     <mat-tab-group mat-align-tabs="center">
         <mat-tab>
             <ng-template mat-tab-label>
                 <mat-icon class="icon-margin">star</mat-icon>
                 STATUS
             </ng-template>
-            <div class="content-tab">
-                Content 1
+            <div class="content-tab" style="margin-top: 20px">
+                <ng-container *ngIf="ranking && ranking.length > 0">
+                    <mat-grid-list cols="4" rowHeight="200px">
+                        <mat-grid-tile [colspan]="4" [rowspan]="1">
+                            <mat-card class="first-place">
+                                <div class="mat-title">PRIMEIRO</div>
+                                <div class="mat-body-strong">{{ranking[0].name.toUpperCase()}}</div>
+                                <div class="mat-body-2">{{ranking[0].score}} PONTOS</div>
+                            </mat-card>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan]="2" [rowspan]="1" style="margin-top: 10px">
+                            <mat-card class="second-place">
+                                <div class="mat-title">SEGUNDO</div>
+                                <div class="mat-body-strong">{{ranking[1].name.toUpperCase()}}</div>
+                                <div class="mat-body-2">{{ranking[1].score}} PONTOS</div>
+                            </mat-card>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan]="2" [rowspan]="1" style="margin-top: 10px">
+                            <mat-card class="third-place">
+                                <div class="mat-title">TERCEIRO</div>
+                                <div class="mat-body-strong">{{ranking[2].name.toUpperCase()}}</div>
+                                <div class="mat-body-2">{{ranking[2].score}} PONTOS</div>
+                            </mat-card>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </ng-container>
+                <ng-container *ngIf="!ranking || ranking.length === 0">
+                    <div class="content-tab">
+                        <div style="background-color: rgba(0,0,0, 0.7)" class="mat-h2 mat-title">POR ENQUANTO NÃO EXISTEM DADOS PARA SEREM ANALISADOS</div>
+                    </div>
+                </ng-container>
             </div>
         </mat-tab>
 
@@ -39,6 +68,12 @@
         </mat-tab>
     </mat-tab-group>
 
+    <!-- Fab Button -->
+    <div class="fab-button">
+        <button mat-fab color="warn" (click)="openDialogToCreateNewMatch($event)">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
 
 </div>
 <!--ng-container-->
