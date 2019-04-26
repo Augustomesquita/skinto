@@ -1,23 +1,60 @@
-
-mat-header-cell, mat-cell {
-  justify-content: center;
-  border-bottom-width: 1px;
-  border-bottom-style: groove;
-  border-bottom-color: lightgrey;
-}
-
-/* offsets the header by the same amount of size/padding the sort button occupies */
-.mat-sort-header-container {
-  margin-left: 18px;
-}
-
-.mat-row, .mat-header-row {
-  border-bottom-width: 0px;
+mat-header-cell,
+mat-cell {
+    justify-content: center;
+    border-bottom-width: 1px;
+    border-bottom-style: groove;
+    border-bottom-color: rgba(255, 255, 255, 0.274);
 }
 
 mat-table {
-  overflow-x: scroll;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+    overflow-x: auto;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+mat-tab {
+    color: black
+}
+
+.mat-sort-header-container {
+    margin-left: 18px;
+}
+
+.mat-row,
+.mat-header-row {
+    border-bottom-width: 0px;
+}
+
+.victory {
+    background-color: rgba(21, 255, 0, 0.425)
+}
+
+.defeat {
+    background-color: rgba(255, 17, 0, 0.425)
+}
+
+.icon-margin {
+    margin-right: 8px;
+}
+
+.augusto-winning {
+    background: url("http://3.bp.blogspot.com/-q9R8ml6TsIE/Vm13Og-1lbI/AAAAAAAABQo/qONQEVB311o/s1600/Hecarim_0.jpg") repeat center center fixed;
+}
+
+.andre-winning {
+    background-image: url("https://4.bp.blogspot.com/-TWIlDHNDldw/XHRTEDIiecI/AAAAAAABPfI/v4ptrFXO7-U5NVJiWTACv5aj8IqnVYUqACLcBGAs/s1600/morganaloadscreen.kayle_rework.jpg");
+    background-repeat: repeat;
+}
+
+.alexandre-winning {
+    background-image: url("https://i.pinimg.com/originals/77/90/60/77906069eb5887bab94d97b38ddb1015.jpg");
+    background-repeat: repeat;
+}
+
+.content-tab {
+    height: 100vh;
+    color: white;
+    text-align: center;
+    padding-top: 3%;
 }

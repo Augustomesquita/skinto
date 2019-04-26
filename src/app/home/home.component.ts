@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material';
 export class HomeComponent implements OnInit {
 
   matchs: MatTableDataSource<Match>;
-  displayedColumns: string[] = ['player', 'champion', 'result', 'date'];
+  displayedColumns: string[] = ['player', 'champion', 'date'];
 
   constructor() {}
 
@@ -38,4 +38,11 @@ export class HomeComponent implements OnInit {
 
     console.log(client);
   }
+
+  getDateFromLong(dateLong: number): string {
+    const dateString = new Date(dateLong).getDate().toLocaleString();
+    console.log(dateString)
+    return dateString;
+  }
+
 }
