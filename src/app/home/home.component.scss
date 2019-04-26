@@ -1,0 +1,23 @@
+
+mat-header-cell, mat-cell {
+  justify-content: center;
+  border-bottom-width: 1px;
+  border-bottom-style: groove;
+  border-bottom-color: lightgrey;
+}
+
+/* offsets the header by the same amount of size/padding the sort button occupies */
+.mat-sort-header-container {
+  margin-left: 18px;
+}
+
+.mat-row, .mat-header-row {
+  border-bottom-width: 0px;
+}
+
+mat-table {
+  overflow-x: scroll;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}

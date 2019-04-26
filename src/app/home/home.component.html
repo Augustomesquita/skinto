@@ -1,0 +1,26 @@
+<mat-table [dataSource]="matchs" class="mat-elevation-z8">
+  <ng-container matColumnDef="player">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Jogador</mat-header-cell>
+    <mat-cell *matCellDef="let match">{{ match.player }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="champion">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Campeão</mat-header-cell>
+    <mat-cell  *matCellDef="let match">{{ match.champion }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="result">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Resultado</mat-header-cell>
+    <mat-cell  *matCellDef="let match">{{ match.result }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Data</mat-header-cell>
+    <mat-cell *matCellDef="let match">{{ match.date }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<!--ng-container-->
