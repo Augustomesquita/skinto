@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import {
   AnonymousCredential,
   RemoteMongoClient,
@@ -18,11 +18,11 @@ import { Globals } from '../globals.util';
 })
 export class DialogMatchComponent {
 
-  date = new FormControl(new Date(), Validators.required);
+  matchAdded = new EventEmitter();
 
+  date = new FormControl(new Date(), Validators.required);
   client: StitchAppClient;
   db: RemoteMongoDatabase;
-
   matchForm = new FormGroup({
     player: new FormControl('Augusto', Validators.required),
     result: new FormControl('true', Validators.required),
@@ -30,8 +30,9 @@ export class DialogMatchComponent {
     date: this.date,
   });
 
-  constructor(public dialogRef: MatDialogRef<DialogMatchComponent>, private snackBar: MatSnackBar, private globals: Globals) { }
-  // ,@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(
+    public dialogRef: MatDialogRef<DialogMatchComponent>,
+    private snackBar: MatSnackBar, private globals: Globals) { }
 
   backClick(): void {
     this.dialogRef.close();
@@ -57,8 +58,12 @@ export class DialogMatchComponent {
           )
           .then(result => {
             if (result.insertedId) {
-              this.snackBar.open('Partida adicionada com sucesso.', 'Pronto!');
-              console.log('ADICIONADO COM SUCESSO!', result.insertedId);
+              this.snackBar.open('Partida adicionada com sucesso.', 'Pronto!', {
+                duration: 3000
+              });
+              this.matchAdded.emit();
+            } else {
+              this.snackBar.open('Falha salvar dados no banco.', 'Erro.');
             }
           })
           .finally(() => {
@@ -72,6 +77,7 @@ export class DialogMatchComponent {
         this.snackBar.open('Comunicação com o CloudBD indisponível no momento. Recarregue a página ou tente mais tarde.', 'Ops!', {
           duration: 6000
         });
+
         this.dialogRef.close();
       }
 

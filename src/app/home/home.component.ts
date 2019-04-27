@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, OnChanges {
     }
   ];
 
-  constructor(public matchDialog: MatDialog, private globals: Globals) {}
+  constructor(public matchDialog: MatDialog, private globals: Globals) { }
 
   ngOnInit() {
     this.client = Stitch.initializeDefaultAppClient(this.globals.atlasClientIpId);
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.client && this.db){
+    if (this.client && this.db) {
       this.updateMatchsAndRanking();
     }
   }
@@ -118,22 +118,15 @@ export class HomeComponent implements OnInit, OnChanges {
     }
   }
 
-  openDialogToCreateNewMatch(event): void {
-
-    const dialogPosition: DialogPosition = {
-      top: event.y + 'px',
-      left: event.x + 'px',
-    };
-
-    console.log(dialogPosition)
-
+  openDialogToCreateNewMatch(): void {
     const dialogRef = this.matchDialog.open(DialogMatchComponent, {
       width: '250px',
-      data: { name: 'teste' }
+      data: { successOperationDone: true }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.componentInstance.matchAdded.subscribe(() => {
+      this.updateMatchsAndRanking();
     });
   }
+
 }
