@@ -21,7 +21,7 @@ export class DialogConfirmComponent implements OnInit {
   }
 
   confirmDelete() {
-    console.log('Deletou');
+    this.matchDeleted.emit();
   }
 
 }

@@ -6,6 +6,7 @@ import {
   RemoteMongoDatabase,
   Stitch,
   StitchAppClient,
+  RemoteDeleteResult,
 } from 'mongodb-stitch-browser-sdk';
 
 import { Globals } from './globals.util';
@@ -136,13 +137,33 @@ export class HomeComponent implements OnInit, OnChanges {
 
   openDialogToDeleteMatch(match: Match): void {
     const dialogRef = this.matchDialog.open(DialogConfirmComponent, {
-      width: '250px',
-      data: { match: match }
+      width: '250px'
     });
 
     dialogRef.componentInstance.matchDeleted.subscribe(() => {
-      this.updateMatchsAndRanking();
+      this.client.auth
+        .loginWithCredential(new AnonymousCredential())
+        .then(() =>
+          this.db
+            .collection('historical')
+            .deleteOne({ _id: match._id })
+            .then((res: RemoteDeleteResult) => {
+              if (res.deletedCount > 0) {
+                this.updateMatchsAndRanking();
+                this.snackBar.open('Partida removida com sucesso.', 'Pronto!', {
+                  duration: 3000
+                });
+                dialogRef.close();
+              } else {
+                this.updateMatchsAndRanking();
+                this.snackBar.open('Partida não encontrada.', 'Ops!', {
+                  duration: 3000
+                });
+              }
+            })
+        );
     });
+
   }
 
   updateAtFixTime() {

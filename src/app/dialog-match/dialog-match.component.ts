@@ -62,12 +62,10 @@ export class DialogMatchComponent {
                 duration: 3000
               });
               this.matchAdded.emit();
+              this.dialogRef.close();
             } else {
-              this.snackBar.open('Falha salvar dados no banco.', 'Erro.');
+              this.snackBar.open('Falha salvar dados no banco, tente novamente.', 'Ops!');
             }
-          })
-          .finally(() => {
-            this.dialogRef.close();
           })
           .catch(err => {
             this.snackBar.open('Falha no envio de dados.', 'Erro.');
