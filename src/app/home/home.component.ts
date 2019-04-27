@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import {
   AnonymousCredential,
   RemoteMongoClient,
-  Stitch
+  Stitch,
+  StitchAppClient,
+  RemoteMongoDatabase
 } from 'mongodb-stitch-browser-sdk';
 import { Match } from './match.model';
 import { MatTableDataSource, MatDialogRef, MatDialog, DialogPosition } from '@angular/material';
@@ -13,10 +15,14 @@ import { DialogMatchComponent } from './dialog-match/dialog-match.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnChanges {
+
   matchs: MatTableDataSource<Match>;
 
   displayedColumns: string[] = ['player', 'champion', 'date'];
+
+  client: StitchAppClient;
+  db: RemoteMongoDatabase;
 
   ranking: any[] = [
     {
@@ -36,15 +42,25 @@ export class HomeComponent implements OnInit {
   constructor(public matchDialog: MatDialog) {}
 
   ngOnInit() {
-    const client = Stitch.initializeDefaultAppClient('skinto-irfcd');
-    const db = client
+    this.client = Stitch.initializeDefaultAppClient('skinto-irfcd');
+    this.db = this.client
       .getServiceClient(RemoteMongoClient.factory, 'mongodb-atlas-skinto')
       .db('skinto');
 
-    client.auth
+    this.updateMatchsAndRanking();
+  }
+
+  ngOnChanges(): void {
+    if (this.client && this.db){
+      this.updateMatchsAndRanking();
+    }
+  }
+
+  updateMatchsAndRanking() {
+    this.client.auth
       .loginWithCredential(new AnonymousCredential())
       .then(() =>
-        db
+        this.db
           .collection('historical')
           .aggregate([{ $sort: { date: -1 } }])
           .asArray()
@@ -56,8 +72,6 @@ export class HomeComponent implements OnInit {
       .catch(err => {
         console.error(err);
       });
-
-    console.log(client);
   }
 
   getDateFromLong(dateLong: number): string {
@@ -107,15 +121,12 @@ export class HomeComponent implements OnInit {
     const dialogPosition: DialogPosition = {
       top: event.y + 'px',
       left: event.x + 'px',
-      right: '0px'
-
     };
 
     console.log(dialogPosition)
 
     const dialogRef = this.matchDialog.open(DialogMatchComponent, {
       width: '250px',
-      position: dialogPosition,
       data: { name: 'teste' }
     });
 
