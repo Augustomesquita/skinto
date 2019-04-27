@@ -18,7 +18,7 @@
 
     <div class="m-margin-top">
       <mat-form-field>
-        <input [value]="date.value" matInput [matDatepicker]="picker" placeholder="Escolha uma data" />
+        <input [value]="date.value" matInput [matDatepicker]="picker" placeholder="Escolha uma data" (dateChange)="dateChanged($event)" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>

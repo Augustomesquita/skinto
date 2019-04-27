@@ -18,6 +18,7 @@ import { Globals } from '../home/globals.util';
 export class DialogMatchComponent {
 
   matchAdded = new EventEmitter();
+  lastDateChanged = new Date();
 
   date = new FormControl(new Date(), Validators.required);
   client: StitchAppClient;
@@ -40,8 +41,8 @@ export class DialogMatchComponent {
 
   onSubmit() {
     if (this.matchForm.valid) {
-      const matchToPost = this.matchForm.value;
-      matchToPost.date = matchToPost.date.getTime(); // Passa para millis
+      let matchToPost = this.matchForm.value;
+      matchToPost.date = this.lastDateChanged.getTime(); // Passa para millis
 
       this.client = Stitch.getAppClient(this.globals.atlasClientIpId);
       this.db = this.client
@@ -80,6 +81,10 @@ export class DialogMatchComponent {
       }
 
     }
+  }
+
+  dateChanged(event) {
+    this.lastDateChanged = event.target.value;
   }
 
 }
