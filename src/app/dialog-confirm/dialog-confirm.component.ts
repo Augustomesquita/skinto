@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { DialogMatchComponent } from '../dialog-match/dialog-match.component';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-dialog-confirm',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogConfirmComponent implements OnInit {
 
-  constructor() { }
+  matchDeleted = new EventEmitter();
+
+  constructor(public dialogRef: MatDialogRef<DialogMatchComponent>) { }
 
   ngOnInit() {
+  }
+
+  backClick(): void {
+    this.dialogRef.close();
+  }
+
+  confirmDelete() {
+    console.log('Deletou');
   }
 
 }

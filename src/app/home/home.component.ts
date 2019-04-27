@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import {
   AnonymousCredential,
   RemoteMongoClient,
@@ -11,6 +11,7 @@ import {
 import { Globals } from './globals.util';
 import { Match } from './match.model';
 import { DialogMatchComponent } from '../dialog-match/dialog-match.component';
+import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 
 @Component({
   selector: 'app-home',
@@ -20,11 +21,11 @@ import { DialogMatchComponent } from '../dialog-match/dialog-match.component';
 export class HomeComponent implements OnInit, OnChanges {
 
   matchs: MatTableDataSource<Match>;
-
   displayedColumns: string[] = ['player', 'champion', 'date'];
-
   client: StitchAppClient;
   db: RemoteMongoDatabase;
+
+  cursorStyle = 'default';
 
   ranking: any[] = [
     {
@@ -41,7 +42,7 @@ export class HomeComponent implements OnInit, OnChanges {
     }
   ];
 
-  constructor(public matchDialog: MatDialog, private globals: Globals) { }
+  constructor(public matchDialog: MatDialog, private snackBar: MatSnackBar, private globals: Globals) { }
 
   ngOnInit() {
     this.client = Stitch.initializeDefaultAppClient(this.globals.atlasClientIpId);
@@ -133,6 +134,17 @@ export class HomeComponent implements OnInit, OnChanges {
     });
   }
 
+  openDialogToDeleteMatch(match: Match): void {
+    const dialogRef = this.matchDialog.open(DialogConfirmComponent, {
+      width: '250px',
+      data: { match: match }
+    });
+
+    dialogRef.componentInstance.matchDeleted.subscribe(() => {
+      this.updateMatchsAndRanking();
+    });
+  }
+
   updateAtFixTime() {
     this.client.auth
       .loginWithCredential(new AnonymousCredential())
@@ -151,6 +163,14 @@ export class HomeComponent implements OnInit, OnChanges {
         console.error(err);
       });
 
+  }
+
+  deleteMatch(matchToDelete: Match) {
+    this.openDialogToDeleteMatch(matchToDelete);
+  }
+
+  changeCursorStyle($event) {
+    this.cursorStyle = $event.type === 'mouseenter' ? 'pointer' : 'default';
   }
 
 }
