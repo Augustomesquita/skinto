@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { DialogPosition, MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import {
   AnonymousCredential,
   RemoteMongoClient,
@@ -8,9 +8,9 @@ import {
   StitchAppClient,
 } from 'mongodb-stitch-browser-sdk';
 
-import { DialogMatchComponent } from './dialog-match/dialog-match.component';
 import { Globals } from './globals.util';
 import { Match } from './match.model';
+import { DialogMatchComponent } from '../dialog-match/dialog-match.component';
 
 @Component({
   selector: 'app-home',
@@ -48,8 +48,7 @@ export class HomeComponent implements OnInit, OnChanges {
     this.db = this.client
       .getServiceClient(RemoteMongoClient.factory, this.globals.atlasServiceName)
       .db(this.globals.atlasDb);
-
-    this.updateMatchsAndRanking();
+    this.updateAtFixTime();
   }
 
   ngOnChanges(): void {
@@ -83,6 +82,12 @@ export class HomeComponent implements OnInit, OnChanges {
   }
 
   updateRanking() {
+
+    // Limpa score
+    this.ranking[0].score = 0;
+    this.ranking[1].score = 0;
+    this.ranking[2].score = 0;
+
     this.matchs.data.forEach(element => {
       switch (element.player.toLowerCase()) {
         case this.ranking[0].name:
@@ -98,7 +103,6 @@ export class HomeComponent implements OnInit, OnChanges {
           break;
       }
     });
-
     this.ranking.sort(this.sortByScore);
   }
 
@@ -127,6 +131,26 @@ export class HomeComponent implements OnInit, OnChanges {
     dialogRef.componentInstance.matchAdded.subscribe(() => {
       this.updateMatchsAndRanking();
     });
+  }
+
+  updateAtFixTime() {
+    this.client.auth
+      .loginWithCredential(new AnonymousCredential())
+      .then(() =>
+        this.db
+          .collection('historical')
+          .aggregate([{ $sort: { date: -1 } }])
+          .asArray()
+      )
+      .then(docs => {
+        this.matchs = new MatTableDataSource(docs as Match[]);
+        this.updateRanking();
+      })
+      .finally(() => setTimeout(() => this.updateAtFixTime(), 5000))
+      .catch(err => {
+        console.error(err);
+      });
+
   }
 
 }

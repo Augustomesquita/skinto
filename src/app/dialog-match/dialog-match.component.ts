@@ -8,8 +8,7 @@ import {
   Stitch,
   StitchAppClient,
 } from 'mongodb-stitch-browser-sdk';
-
-import { Globals } from '../globals.util';
+import { Globals } from '../home/globals.util';
 
 @Component({
   selector: 'app-dialog-match',
@@ -32,7 +31,8 @@ export class DialogMatchComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogMatchComponent>,
-    private snackBar: MatSnackBar, private globals: Globals) { }
+    private snackBar: MatSnackBar,
+    private globals: Globals) { }
 
   backClick(): void {
     this.dialogRef.close();

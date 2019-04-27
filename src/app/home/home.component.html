@@ -62,7 +62,7 @@
                     </ng-container>
 
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'victory': row.result, 'defeat': !row.result }"></mat-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'victory': row.result || row.result === 'true', 'defeat': !row.result || row.result === 'false'}"></mat-row>
                 </mat-table>
             </div>
         </mat-tab>
