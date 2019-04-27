@@ -1,14 +1,16 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
+import { DialogPosition, MatDialog, MatTableDataSource } from '@angular/material';
 import {
   AnonymousCredential,
   RemoteMongoClient,
+  RemoteMongoDatabase,
   Stitch,
   StitchAppClient,
-  RemoteMongoDatabase
 } from 'mongodb-stitch-browser-sdk';
-import { Match } from './match.model';
-import { MatTableDataSource, MatDialogRef, MatDialog, DialogPosition } from '@angular/material';
+
 import { DialogMatchComponent } from './dialog-match/dialog-match.component';
+import { Globals } from './globals.util';
+import { Match } from './match.model';
 
 @Component({
   selector: 'app-home',
@@ -39,13 +41,13 @@ export class HomeComponent implements OnInit, OnChanges {
     }
   ];
 
-  constructor(public matchDialog: MatDialog) {}
+  constructor(public matchDialog: MatDialog, private globals: Globals) {}
 
   ngOnInit() {
-    this.client = Stitch.initializeDefaultAppClient('skinto-irfcd');
+    this.client = Stitch.initializeDefaultAppClient(this.globals.atlasClientIpId);
     this.db = this.client
-      .getServiceClient(RemoteMongoClient.factory, 'mongodb-atlas-skinto')
-      .db('skinto');
+      .getServiceClient(RemoteMongoClient.factory, this.globals.atlasServiceName)
+      .db(this.globals.atlasDb);
 
     this.updateMatchsAndRanking();
   }

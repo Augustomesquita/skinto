@@ -15,6 +15,7 @@ import {
   MatNativeDateModule,
   DateAdapter,
   MAT_DATE_FORMATS,
+  MatSnackBarModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +30,7 @@ import { HomeComponent } from './home/home.component';
 import { HomeRoutingModule } from './home/home.routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDateAdapter } from './my-date-adapter.util';
+import { Globals } from './home/globals.util';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -62,6 +64,7 @@ const MY_DATE_FORMATS = {
     MatInputModule,
     MatRadioModule,
     MatDatepickerModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
@@ -79,9 +82,11 @@ const MY_DATE_FORMATS = {
     MatInputModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
   ],
   providers: [
+    Globals,
     MatDatepickerModule,
     { provide: DateAdapter, useClass: MyDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
