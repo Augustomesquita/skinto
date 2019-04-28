@@ -115,3 +115,15 @@ mat-table {
   animation: blink 1s;
   animation-iteration-count: infinite;
 }
+
+.container {
+  text-align: center;
+  color: white;
+}
+
+.centered {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

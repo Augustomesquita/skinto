@@ -6,32 +6,37 @@
         STATUS
       </ng-template>
       <div class="content-tab" style="margin-top: 20px">
-
         <ng-container *ngIf="ranking && ranking.length > 0">
           <mat-grid-list cols="4" rowHeight="200px">
             <mat-grid-tile [colspan]="4" [rowspan]="1">
-              <mat-card class="first-place">
-                <div class="mat-title">PRIMEIRO</div>
-                <div class="mat-body-1">{{ ranking[0].name.toUpperCase() }}</div>
-                <div class="mat-body-1">{{ ranking[0].score }} PONTOS</div>
-                <img class="blink-effect" *ngIf="ranking[0].name === playerOnHotStreak" src="../../assets/img/hotstreak.png" style="max-height: 65px">
-              </mat-card>
+              <div class="container">
+                <img src="../../assets/img/first_molding.png" style="max-height: 200px" />
+                <div class="centered">
+                  <div>{{ ranking[0].name.toUpperCase() }}</div>
+                  <div>{{ ranking[0].score }} PONTOS</div>
+                  <img class="blink-effect" *ngIf="ranking[0].name === playerOnHotStreak" src="../../assets/img/hotstreak.png" style="max-height: 40px" />
+                </div>
+              </div>
             </mat-grid-tile>
             <mat-grid-tile [colspan]="2" [rowspan]="1" style="margin-top: 10px">
-              <mat-card class="second-place">
-                <div class="mat-title">SEGUNDO</div>
-                <div class="mat-body-1">{{ ranking[1].name.toUpperCase() }}</div>
-                <div class="mat-body-1">{{ ranking[1].score }} PONTOS</div>
-                <img class="blink-effect" *ngIf="ranking[1].name === playerOnHotStreak" src="../../assets/img/hotstreak.png" style="max-height: 50px">
-              </mat-card>
+              <div class="container">
+                <img src="../../assets/img/second_molding.png" style="max-height: 200px" />
+                <div class="centered">
+                  <div>{{ ranking[1].name.toUpperCase() }}</div>
+                  <div>{{ ranking[1].score }} PONTOS</div>
+                  <img class="blink-effect" *ngIf="ranking[1].name === playerOnHotStreak" src="../../assets/img/hotstreak.png" style="max-height: 40px" />
+                </div>
+              </div>
             </mat-grid-tile>
             <mat-grid-tile [colspan]="2" [rowspan]="1" style="margin-top: 10px">
-              <mat-card class="third-place">
-                <div class="mat-title">TERCEIRO</div>
-                <div class="mat-body-1">{{ ranking[2].name.toUpperCase() }}</div>
-                <div class="mat-body-1">{{ ranking[2].score }} PONTOS</div>
-                <img class="blink-effect" *ngIf="ranking[2].name === playerOnHotStreak" src="../../assets/img/hotstreak.png" style="max-height: 50px">
-              </mat-card>
+              <div class="container">
+                <img src="../../assets/img/third_molding.png" style="max-height: 200px" />
+                <div class="centered">
+                  <div>{{ ranking[2].name.toUpperCase() }}</div>
+                  <div>{{ ranking[2].score }} PONTOS</div>
+                  <img class="blink-effect" *ngIf="ranking[2].name === playerOnHotStreak" src="../../assets/img/hotstreak.png" style="max-height: 40px" />
+                </div>
+              </div>
             </mat-grid-tile>
           </mat-grid-list>
         </ng-container>
@@ -41,7 +46,6 @@
             <div style="background-color: rgba(0,0,0, 0.7)" class="mat-h2 mat-title">POR ENQUANTO NÃO EXISTEM DADOS PARA SEREM ANALISADOS</div>
           </div>
         </ng-container>
-
       </div>
     </mat-tab>
 
