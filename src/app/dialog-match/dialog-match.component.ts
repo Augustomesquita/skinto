@@ -18,7 +18,7 @@ import { Globals } from '../home/globals.util';
 export class DialogMatchComponent {
 
   matchAdded = new EventEmitter();
-  lastDateChanged = new Date();
+  lastDateChangedInMillis = new Date().getTime();
 
   date = new FormControl(new Date(), Validators.required);
   client: StitchAppClient;
@@ -41,8 +41,8 @@ export class DialogMatchComponent {
 
   onSubmit() {
     if (this.matchForm.valid) {
-      let matchToPost = this.matchForm.value;
-      matchToPost.date = this.lastDateChanged.getTime(); // Passa para millis
+      const matchToPost = this.matchForm.value;
+      matchToPost.date = this.lastDateChangedInMillis; // Passa para millis
 
       this.client = Stitch.getAppClient(this.globals.atlasClientIpId);
       this.db = this.client
@@ -84,7 +84,20 @@ export class DialogMatchComponent {
   }
 
   dateChanged(event) {
-    this.lastDateChanged = event.target.value;
+    this.lastDateChangedInMillis = event.target.value.getTime();
+
+    const dateNow = new Date(); // Para adicionar horas, minutos e segundos ao milli da data.
+
+    this.lastDateChangedInMillis += this.milisecondsFromHourMinutesAndSeconds(
+      dateNow.getHours(),
+      dateNow.getMinutes(),
+      dateNow.getSeconds()
+    );
+
+  }
+
+  milisecondsFromHourMinutesAndSeconds(hrs: number, min: number, sec: number) {
+    return ((hrs * 60 * 60 + min * 60 + sec) * 1000);
   }
 
 }

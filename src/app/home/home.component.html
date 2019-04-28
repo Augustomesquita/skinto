@@ -6,6 +6,7 @@
         STATUS
       </ng-template>
       <div class="content-tab" style="margin-top: 20px">
+
         <ng-container *ngIf="ranking && ranking.length > 0">
           <mat-grid-list cols="4" rowHeight="200px">
             <mat-grid-tile [colspan]="4" [rowspan]="1">
@@ -13,6 +14,7 @@
                 <div class="mat-title">PRIMEIRO</div>
                 <div class="mat-body-1">{{ ranking[0].name.toUpperCase() }}</div>
                 <div class="mat-body-1">{{ ranking[0].score }} PONTOS</div>
+                <img *ngIf="ranking[0].name === playerOnHotStreak" src="../../assets/img/hotstreak.png" style="max-height: 65px">
               </mat-card>
             </mat-grid-tile>
             <mat-grid-tile [colspan]="2" [rowspan]="1" style="margin-top: 10px">
@@ -20,6 +22,7 @@
                 <div class="mat-title">SEGUNDO</div>
                 <div class="mat-body-1">{{ ranking[1].name.toUpperCase() }}</div>
                 <div class="mat-body-1">{{ ranking[1].score }} PONTOS</div>
+                <img *ngIf="ranking[1].name === playerOnHotStreak" src="../../assets/img/hotstreak.png" style="max-height: 50px">
               </mat-card>
             </mat-grid-tile>
             <mat-grid-tile [colspan]="2" [rowspan]="1" style="margin-top: 10px">
@@ -27,15 +30,18 @@
                 <div class="mat-title">TERCEIRO</div>
                 <div class="mat-body-1">{{ ranking[2].name.toUpperCase() }}</div>
                 <div class="mat-body-1">{{ ranking[2].score }} PONTOS</div>
+                <img *ngIf="ranking[2].name === playerOnHotStreak" src="../../assets/img/hotstreak.png" style="max-height: 50px">
               </mat-card>
             </mat-grid-tile>
           </mat-grid-list>
         </ng-container>
+
         <ng-container *ngIf="!ranking || ranking.length === 0">
           <div class="content-tab">
             <div style="background-color: rgba(0,0,0, 0.7)" class="mat-h2 mat-title">POR ENQUANTO NÃO EXISTEM DADOS PARA SEREM ANALISADOS</div>
           </div>
         </ng-container>
+
       </div>
     </mat-tab>
 
@@ -62,7 +68,14 @@
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row [ngStyle]="{'cursor': cursorStyle }" (mouseenter)="changeCursorStyle($event)" (mouseleave)="changeCursorStyle($event)"  (click)="deleteMatch(match)"  *matRowDef="let match; columns: displayedColumns" [ngClass]="{ victory: match.result || match.result === 'true', defeat: !match.result || match.result === 'false' }"></mat-row>
+          <mat-row
+            [ngStyle]="{ cursor: cursorStyle }"
+            (mouseenter)="changeCursorStyle($event)"
+            (mouseleave)="changeCursorStyle($event)"
+            (click)="deleteMatch(match)"
+            *matRowDef="let match; columns: displayedColumns"
+            [ngClass]="{ victory: match.result || match.result === 'true', defeat: !match.result || match.result === 'false' }"
+          ></mat-row>
         </mat-table>
       </div>
     </mat-tab>

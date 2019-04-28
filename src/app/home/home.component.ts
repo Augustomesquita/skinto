@@ -26,19 +26,21 @@ export class HomeComponent implements OnInit, OnChanges {
   client: StitchAppClient;
   db: RemoteMongoDatabase;
 
+  playerOnHotStreak: string = null;
+
   cursorStyle = 'default';
 
   ranking: any[] = [
     {
-      name: 'augusto',
+      name: 'Augusto',
       score: 0
     },
     {
-      name: 'alexandre',
+      name: 'Alexandre',
       score: 0
     },
     {
-      name: 'andré',
+      name: 'André',
       score: 0
     }
   ];
@@ -90,8 +92,27 @@ export class HomeComponent implements OnInit, OnChanges {
     this.ranking[1].score = 0;
     this.ranking[2].score = 0;
 
+    let firstThreeRegisters = 0;
+
+
+    let lastPlayer = this.matchs.data[0].player;
+    let streakCount = 0;
+    const streakPlayer = this.matchs.data[0].player;
+
     this.matchs.data.forEach(element => {
-      switch (element.player.toLowerCase()) {
+      // Atualiza jogador em Hot Streak
+      if (firstThreeRegisters < 3) {
+        firstThreeRegisters++;
+        if (lastPlayer === element.player) {
+          streakCount++;
+        } else {
+          streakCount = 0;
+        }
+        lastPlayer = element.player;
+      }
+
+      // Atualiza ranking
+      switch (element.player) {
         case this.ranking[0].name:
           this.ranking[0].score++;
           break;
@@ -105,6 +126,16 @@ export class HomeComponent implements OnInit, OnChanges {
           break;
       }
     });
+
+    // Caso tenha havido um hot streak
+    // atualiza o mesmo na interface.
+    if (streakCount > 2) {
+      this.playerOnHotStreak = streakPlayer;
+    } else {
+      this.playerOnHotStreak = null;
+    }
+
+
     this.ranking.sort(this.sortByScore);
   }
 
@@ -120,7 +151,7 @@ export class HomeComponent implements OnInit, OnChanges {
 
   getWinnerClassName(): string {
     if (this.ranking && this.ranking.length > 0) {
-      return this.ranking[0].name + '-winning';
+      return this.ranking[0].name.toLowerCase() + '-winning';
     }
   }
 
@@ -183,7 +214,6 @@ export class HomeComponent implements OnInit, OnChanges {
       .catch(err => {
         console.error(err);
       });
-
   }
 
   deleteMatch(matchToDelete: Match) {
