@@ -30,7 +30,6 @@ import { DialogMatchComponent } from './dialog-match/dialog-match.component';
 import { Globals } from './home/globals.util';
 import { HomeLayoutComponent } from './home/home-layout.component';
 import { HomeComponent } from './home/home.component';
-import { HomeRoutingModule } from './home/home.routing.module';
 import { MyDateAdapter } from './my-date-adapter.util';
 import { MyHammerConfig } from './my-hammer-config.util';
 
@@ -52,7 +51,6 @@ const MY_DATE_FORMATS = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HomeRoutingModule,
     BrowserAnimationsModule,
     MatGridListModule,
     MatButtonModule,
