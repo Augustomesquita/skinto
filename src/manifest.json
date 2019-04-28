@@ -1,8 +1,8 @@
 {
-    "name": "Skinto",
-    "short_name": "Skinto",
-    "theme_color": "#242424",
-    "background_color": "#797979",
+    "name": "SKINTO",
+    "short_name": "SKINTO",
+    "theme_color": "#000",
+    "background_color": "#fff",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
