@@ -1,129 +1,130 @@
 mat-header-cell,
 mat-cell {
-  justify-content: center;
-  border-bottom-width: 1px;
-  border-bottom-style: groove;
-  border-bottom-color: rgba(255, 255, 255, 0.274);
+    justify-content: center;
+    border-bottom-width: 1px;
+    border-bottom-style: groove;
+    border-bottom-color: rgba(255, 255, 255, 0.274);
 }
 
 mat-table {
-  overflow-x: auto;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+    overflow-x: auto;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .outer {
-  display: table;
-  position: absolute;
-  top: 0;
-  left: 0;
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .mat-title {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .mat-card.first-place {
-  border: 6px solid rgb(255, 238, 0);
-  border-radius: 5px;
-  text-shadow: 1px 1px rgb(255, 238, 0);
+    border: 6px solid rgb(255, 238, 0);
+    border-radius: 5px;
+    text-shadow: 1px 1px rgb(255, 238, 0);
 }
 
 .mat-card.second-place {
-  border: 6px solid rgb(177, 177, 177);
-  border-radius: 5px;
-  text-shadow: 1px 1px rgb(128, 128, 128);
+    border: 6px solid rgb(177, 177, 177);
+    border-radius: 5px;
+    text-shadow: 1px 1px rgb(128, 128, 128);
 }
 
 .mat-card.third-place {
-  border: 6px solid rgb(122, 55, 0);
-  border-radius: 5px;
-  text-shadow: 1px 1px rgba(122, 55, 0, 0.5);
+    border: 6px solid rgb(122, 55, 0);
+    border-radius: 5px;
+    text-shadow: 1px 1px rgba(122, 55, 0, 0.5);
 }
 
 .mat-row,
 .mat-header-row {
-  border-bottom-width: 0px;
+    border-bottom-width: 0px;
 }
 
 .victory {
-  background-color: rgba(21, 255, 0, 0.425);
+    background-color: rgba(21, 255, 0, 0.425);
 }
 
 .defeat {
-  background-color: rgba(255, 17, 0, 0.425);
+    background-color: rgba(255, 17, 0, 0.425);
 }
 
 .icon-margin {
-  margin-right: 8px;
+    margin-right: 8px;
 }
 
 .augusto-winning {
-  background: url('../../assets/img/champion_augusto.jpg') repeat center top;
+    background: url('../../assets/img/champion_augusto.jpg') repeat;
+    background-position: 52% 20%;
 }
 
 .andre-winning {
-  background: url('../../assets/img/champion_andre.jpg') repeat center top;
+    background: url('../../assets/img/champion_andre.jpg') repeat center top;
 }
 
 .alexandre-winning {
-  background: url('../../assets/img/champion_alexandre.jpg') repeat center top;
+    background: url('../../assets/img/champion_alexandre.jpg') repeat center top;
 }
 
 .mat-card {
-  background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .content-tab {
-  height: 100vh;
-  color: white;
-  text-align: center;
-  padding: 3%;
+    height: 100vh;
+    color: white;
+    text-align: center;
+    padding: 3%;
 }
 
 .fab-button {
-  z-index: 5;
-  position: fixed;
-  display: flex;
-  align-self: flex-end;
-  bottom: 0;
-  right: 0;
-  margin-bottom: 5%;
-  margin-right: 5%;
+    z-index: 5;
+    position: fixed;
+    display: flex;
+    align-self: flex-end;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 5%;
+    margin-right: 5%;
 }
 
 @keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0.75;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  75% {
-    opacity: 0.75;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0.75;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    75% {
+        opacity: 0.75;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .blink-effect {
-  animation: blink 1s;
-  animation-iteration-count: infinite;
+    animation: blink 1s;
+    animation-iteration-count: infinite;
 }
 
 .container {
-  text-align: center;
-  color: white;
+    text-align: center;
+    color: white;
 }
 
 .centered {
-  position: absolute;
-  top: 38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

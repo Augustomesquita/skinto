@@ -6,13 +6,14 @@ import {
   RemoteMongoDatabase,
   Stitch,
   StitchAppClient,
-  RemoteDeleteResult,
+  RemoteDeleteResult
 } from 'mongodb-stitch-browser-sdk';
 
 import { Globals } from './globals.util';
 import { Match } from './match.model';
 import { DialogMatchComponent } from '../dialog-match/dialog-match.component';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,6 @@ import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.compone
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnChanges {
-
   matchs: MatTableDataSource<Match>;
   displayedColumns: string[] = ['player', 'champion', 'date'];
   client: StitchAppClient;
@@ -45,12 +45,23 @@ export class HomeComponent implements OnInit, OnChanges {
     }
   ];
 
-  constructor(public matchDialog: MatDialog, private snackBar: MatSnackBar, private globals: Globals) { }
+  constructor(
+    public matchDialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private globals: Globals,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit() {
-    this.client = Stitch.initializeDefaultAppClient(this.globals.atlasClientIpId);
+    this.spinner.show();
+    this.client = Stitch.initializeDefaultAppClient(
+      this.globals.atlasClientIpId
+    );
     this.db = this.client
-      .getServiceClient(RemoteMongoClient.factory, this.globals.atlasServiceName)
+      .getServiceClient(
+        RemoteMongoClient.factory,
+        this.globals.atlasServiceName
+      )
       .db(this.globals.atlasDb);
     this.updateAtFixTime();
   }
@@ -86,14 +97,12 @@ export class HomeComponent implements OnInit, OnChanges {
   }
 
   updateRanking() {
-
     // Limpa score
     this.ranking[0].score = 0;
     this.ranking[1].score = 0;
     this.ranking[2].score = 0;
 
     let firstThreeRegisters = 0;
-
 
     let lastPlayer = this.matchs.data[0].player;
     let streakCount = 0;
@@ -135,7 +144,6 @@ export class HomeComponent implements OnInit, OnChanges {
       this.playerOnHotStreak = null;
     }
 
-
     this.ranking.sort(this.sortByScore);
   }
 
@@ -172,29 +180,26 @@ export class HomeComponent implements OnInit, OnChanges {
     });
 
     dialogRef.componentInstance.matchDeleted.subscribe(() => {
-      this.client.auth
-        .loginWithCredential(new AnonymousCredential())
-        .then(() =>
-          this.db
-            .collection('historical')
-            .deleteOne({ _id: match._id })
-            .then((res: RemoteDeleteResult) => {
-              if (res.deletedCount > 0) {
-                this.updateMatchsAndRanking();
-                this.snackBar.open('Partida removida com sucesso.', 'Pronto!', {
-                  duration: 3000
-                });
-                dialogRef.close();
-              } else {
-                this.updateMatchsAndRanking();
-                this.snackBar.open('Partida não encontrada.', 'Ops!', {
-                  duration: 3000
-                });
-              }
-            })
-        );
+      this.client.auth.loginWithCredential(new AnonymousCredential()).then(() =>
+        this.db
+          .collection('historical')
+          .deleteOne({ _id: match._id })
+          .then((res: RemoteDeleteResult) => {
+            if (res.deletedCount > 0) {
+              this.updateMatchsAndRanking();
+              this.snackBar.open('Partida removida com sucesso.', 'Pronto!', {
+                duration: 3000
+              });
+              dialogRef.close();
+            } else {
+              this.updateMatchsAndRanking();
+              this.snackBar.open('Partida não encontrada.', 'Ops!', {
+                duration: 3000
+              });
+            }
+          })
+      );
     });
-
   }
 
   updateAtFixTime() {
@@ -210,9 +215,12 @@ export class HomeComponent implements OnInit, OnChanges {
         this.matchs = new MatTableDataSource(docs as Match[]);
         this.updateRanking();
       })
-      .finally(() => setTimeout(() => this.updateAtFixTime(), 5000))
       .catch(err => {
         console.error(err);
+      })
+      .finally(() => {
+        this.spinner.hide();
+        setTimeout(() => this.updateAtFixTime(), 5000);
       });
   }
 
@@ -223,5 +231,4 @@ export class HomeComponent implements OnInit, OnChanges {
   changeCursorStyle($event) {
     this.cursorStyle = $event.type === 'mouseenter' ? 'pointer' : 'default';
   }
-
 }

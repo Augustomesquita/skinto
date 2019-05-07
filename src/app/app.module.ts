@@ -21,6 +21,7 @@ import {
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -67,6 +68,7 @@ const MY_DATE_FORMATS = {
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [
