@@ -27,6 +27,7 @@ export class DialogMatchComponent {
     player: new FormControl('Augusto', Validators.required),
     result: new FormControl('true', Validators.required),
     champion: new FormControl('', Validators.required),
+    perfect: new FormControl(false),
     date: this.date,
   });
 

@@ -51,8 +51,22 @@ mat-table {
     background-color: rgba(21, 255, 0, 0.425);
 }
 
+.victory-perfect {
+    background-color: rgba(21, 255, 0, 0.425);
+    border-style: solid;
+    border-width: 3px;
+    border-color: gold;
+}
+
 .defeat {
     background-color: rgba(255, 17, 0, 0.425);
+}
+
+.defeat-perfect {
+    background-color: rgba(255, 17, 0, 0.425);
+    border-style: solid;
+    border-width: 3px;
+    border-color: gold;
 }
 
 .icon-margin {

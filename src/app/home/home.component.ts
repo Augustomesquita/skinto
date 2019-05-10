@@ -231,4 +231,13 @@ export class HomeComponent implements OnInit, OnChanges {
   changeCursorStyle($event) {
     this.cursorStyle = $event.type === 'mouseenter' ? 'pointer' : 'default';
   }
+
+  paintRow(match): object {
+    return {
+      victory: (match.result || match.result === 'true') && !match.perfect,
+      'victory-perfect': (match.result || match.result === 'true') && match.perfect,
+      defeat: (!match.result || match.result === 'false') && !match.perfect,
+      'defeat-perfect': (!match.result || match.result === 'false') && match.perfect,
+    };
+  }
 }

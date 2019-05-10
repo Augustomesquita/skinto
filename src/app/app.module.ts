@@ -17,6 +17,7 @@ import {
   MatSnackBarModule,
   MatTableModule,
   MatTabsModule,
+  MatCheckboxModule,
 } from '@angular/material';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -66,6 +67,7 @@ const MY_DATE_FORMATS = {
     MatRadioModule,
     MatDatepickerModule,
     MatSnackBarModule,
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
@@ -85,7 +87,8 @@ const MY_DATE_FORMATS = {
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCheckboxModule
   ],
   providers: [
     Globals,

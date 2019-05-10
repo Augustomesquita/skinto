@@ -72,7 +72,7 @@
                     </ng-container>
 
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row [ngStyle]="{ cursor: cursorStyle }" (mouseenter)="changeCursorStyle($event)" (mouseleave)="changeCursorStyle($event)" (click)="deleteMatch(match)" *matRowDef="let match; columns: displayedColumns" [ngClass]="{ victory: match.result || match.result === 'true', defeat: !match.result || match.result === 'false' }"></mat-row>
+                    <mat-row [ngStyle]="{ cursor: cursorStyle }" (mouseenter)="changeCursorStyle($event)" (mouseleave)="changeCursorStyle($event)" (click)="deleteMatch(match)" *matRowDef="let match; columns: displayedColumns" [ngClass]="paintRow(match)"></mat-row>
                 </mat-table>
             </div>
         </mat-tab>

@@ -1,39 +1,43 @@
 <div class="example-container">
-  <form [formGroup]="matchForm" (ngSubmit)="onSubmit()">
-    <div>
-      <mat-form-field>
-        <mat-select formControlName="player" placeholder="Jogador">
-          <mat-option value="Augusto">Augusto</mat-option>
-          <mat-option value="Alexandre">Alexandre</mat-option>
-          <mat-option value="André">André</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+    <form [formGroup]="matchForm" (ngSubmit)="onSubmit()">
+        <div>
+            <mat-form-field>
+                <mat-select formControlName="player" placeholder="Jogador">
+                    <mat-option value="Augusto">Augusto</mat-option>
+                    <mat-option value="Alexandre">Alexandre</mat-option>
+                    <mat-option value="André">André</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-    <div>
-      <mat-form-field>
-        <input type="text" formControlName="champion" matInput placeholder="Campeão" />
-      </mat-form-field>
-    </div>
+        <div>
+            <mat-form-field>
+                <input type="text" formControlName="champion" matInput placeholder="Campeão" />
+            </mat-form-field>
+        </div>
 
-    <div class="m-margin-top">
-      <mat-form-field>
-        <input [value]="date.value" matInput [matDatepicker]="picker" placeholder="Escolha uma data" (dateChange)="dateChanged($event)" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </div>
+        <div class="m-margin-top">
+            <mat-form-field>
+                <input [value]="date.value" matInput [matDatepicker]="picker" placeholder="Escolha uma data" (dateChange)="dateChanged($event)" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
 
-    <div class="m-margin-top" style="text-align: center">
-      <mat-radio-group formControlName="result">
-        <mat-radio-button value="true">Vitória</mat-radio-button>
-        <mat-radio-button style="margin-left: 10px" value="false">Derrota</mat-radio-button>
-      </mat-radio-group>
-    </div>
+        <div class="m-margin-top" style="text-align: center">
+            <mat-radio-group formControlName="result">
+                <mat-radio-button value="true">Vitória</mat-radio-button>
+                <mat-radio-button style="margin-left: 10px" value="false">Derrota</mat-radio-button>
+            </mat-radio-group>
+        </div>
 
-    <div class="m-margin-top-large" style="text-align: center">
-        <button mat-raised-button  (click)="backClick()">VOLTAR</button>
-        <button style="margin-left: 10px" type="submit" mat-raised-button color="primary">ADICIONAR</button>
-    </div>
-  </form>
+        <div class="m-margin-top" style="text-align: center">
+            <mat-checkbox formControlName="perfect">KDA Perfeito</mat-checkbox>
+        </div>
+
+        <div class="m-margin-top-large" style="text-align: center">
+            <button mat-raised-button (click)="backClick()">VOLTAR</button>
+            <button style="margin-left: 10px" type="submit" mat-raised-button color="primary">ADICIONAR</button>
+        </div>
+    </form>
 </div>
