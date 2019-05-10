@@ -18,6 +18,7 @@ import {
   MatTableModule,
   MatTabsModule,
   MatCheckboxModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +35,7 @@ import { HomeLayoutComponent } from './home/home-layout.component';
 import { HomeComponent } from './home/home.component';
 import { MyDateAdapter } from './my-date-adapter.util';
 import { MyHammerConfig } from './my-hammer-config.util';
+import { HttpClientModule } from '@angular/common/http';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -54,6 +56,7 @@ const MY_DATE_FORMATS = {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatGridListModule,
     MatButtonModule,
     MatDialogModule,
@@ -68,6 +71,7 @@ const MY_DATE_FORMATS = {
     MatDatepickerModule,
     MatSnackBarModule,
     MatCheckboxModule,
+    MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
@@ -88,7 +92,8 @@ const MY_DATE_FORMATS = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatAutocompleteModule
   ],
   providers: [
     Globals,
