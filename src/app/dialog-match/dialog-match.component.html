@@ -12,10 +12,10 @@
 
         <div>
             <mat-form-field>
-                <input type="text" formControlName="champion" matInput placeholder="Campeão" [matAutocomplete]="auto" />
+                <input type="text" formControlName="champion" matInput placeholder="Campeão" [matAutocomplete]="auto" (keyup)="invalidateChampionSelected()" />
                 <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let champion of filteredChampionList | async" [value]="champion">
-                        {{champion}}
+                    <mat-option (click)="championSelection(champion)" *ngFor="let champion of filteredChampionList | async" [value]="champion">
+                      <div>{{champion}}</div>
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>

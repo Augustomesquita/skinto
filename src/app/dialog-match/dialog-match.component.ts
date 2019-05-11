@@ -37,13 +37,14 @@ export class DialogMatchComponent implements OnInit {
 
   championList: string[];
   filteredChampionList: Observable<string[]>;
+  championWasSelected = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogMatchComponent>,
     private snackBar: MatSnackBar,
     private globals: Globals,
     private http: HttpClient
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.http
@@ -71,6 +72,10 @@ export class DialogMatchComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.championWasSelected) {
+      this.championControl.patchValue('');
+    }
+
     if (this.matchForm.valid) {
       const matchToPost = this.matchForm.value;
       matchToPost.date = this.lastDateChangedInMillis; // Passa para millis
@@ -134,4 +139,16 @@ export class DialogMatchComponent implements OnInit {
   milisecondsFromHourMinutesAndSeconds(hrs: number, min: number, sec: number) {
     return (hrs * 60 * 60 + min * 60 + sec) * 1000;
   }
+
+  championSelection(champion) {
+    if (champion) {
+      this.championWasSelected = true;
+    }
+  }
+
+  invalidateChampionSelected() {
+    console.log('INVALIDOU')
+    this.championWasSelected = false
+  }
+
 }
