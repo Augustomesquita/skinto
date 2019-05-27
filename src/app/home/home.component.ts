@@ -33,15 +33,18 @@ export class HomeComponent implements OnInit, OnChanges {
   ranking: any[] = [
     {
       name: 'Augusto',
-      score: 0
+      score: 0,
+      lastChampion: 'Nunu'
     },
     {
       name: 'Alexandre',
-      score: 0
+      score: 0,
+      lastChampion: 'Caitlyn'
     },
     {
       name: 'André',
-      score: 0
+      score: 0,
+      lastChampion: 'Morgana'
     }
   ];
 
@@ -50,7 +53,7 @@ export class HomeComponent implements OnInit, OnChanges {
     private snackBar: MatSnackBar,
     private globals: Globals,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -108,7 +111,11 @@ export class HomeComponent implements OnInit, OnChanges {
     let streakCount = 0;
     const streakPlayer = this.matchs.data[0].player;
 
-    this.matchs.data.forEach(element => {
+
+    const copyMatchToOrdering = this.matchs.data;
+    copyMatchToOrdering.sort(this.sortByDateAsc);
+
+    copyMatchToOrdering.forEach(element => {
       // Atualiza jogador em Hot Streak
       if (firstThreeRegisters < 3) {
         firstThreeRegisters++;
@@ -124,16 +131,20 @@ export class HomeComponent implements OnInit, OnChanges {
       switch (element.player) {
         case this.ranking[0].name:
           this.ranking[0].score++;
+          this.ranking[0].lastChampion = element.champion;
           break;
 
         case this.ranking[1].name:
           this.ranking[1].score++;
+          this.ranking[1].lastChampion = element.champion;
           break;
 
         case this.ranking[2].name:
           this.ranking[2].score++;
+          this.ranking[2].lastChampion = element.champion;
           break;
       }
+
     });
 
     // Caso tenha havido um hot streak
@@ -144,6 +155,7 @@ export class HomeComponent implements OnInit, OnChanges {
       this.playerOnHotStreak = null;
     }
 
+    copyMatchToOrdering.sort(this.sortByDateDesc);
     this.ranking.sort(this.sortByScore);
   }
 
@@ -157,10 +169,40 @@ export class HomeComponent implements OnInit, OnChanges {
     return 0;
   }
 
+  sortByDateAsc(a, b) {
+    if (a.date > b.date) {
+      return 1;
+    }
+    if (a.date < b.date) {
+      return -1;
+    }
+    return 0;
+  }
+
+  sortByDateDesc(a, b) {
+    if (a.date < b.date) {
+      return 1;
+    }
+    if (a.date > b.date) {
+      return -1;
+    }
+    return 0;
+  }
+
   getWinnerClassName(): string {
     if (this.ranking && this.ranking.length > 0) {
       return this.ranking[0].name.toLowerCase() + '-winning';
     }
+  }
+
+  getLastChampionWinnerBG(): object {
+    return {
+      background: 'url("../../assets/img/background/' + this.ranking[0].lastChampion + '_0.jpg") repeat center top',
+      '-webkit-transition': 'background-image 2s ease-in-out',
+      '-moz-transition': 'background-image 2s ease-in-out',
+      '-o-transition': 'background-image 2s ease-in-out',
+      transition: 'background-image 2s ease-in-out'
+    };
   }
 
   openDialogToCreateNewMatch(): void {

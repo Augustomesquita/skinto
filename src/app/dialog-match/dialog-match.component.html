@@ -12,16 +12,16 @@
 
         <div>
             <mat-form-field>
-                <input type="text" formControlName="champion" matInput placeholder="Campeão" [matAutocomplete]="auto" />
+                <input type="text" formControlName="champion" matInput placeholder="Campeão" [matAutocomplete]="auto" (keyup)="invalidateChampionSelected()" />
                 <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let champion of filteredChampionList | async" [value]="champion">
-                        {{champion}}
+                    <mat-option (click)="championSelection(champion)" *ngFor="let champion of filteredChampionList | async" [value]="champion">
+                      <div>{{champion}}</div>
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
         </div>
 
-        <div class="m-margin-top">
+        <div>
             <mat-form-field>
                 <input [value]="date.value" matInput [matDatepicker]="picker" placeholder="Escolha uma data" (dateChange)="dateChanged($event)" />
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -29,7 +29,7 @@
             </mat-form-field>
         </div>
 
-        <div class="m-margin-top" style="text-align: center">
+        <div style="text-align: center">
             <mat-radio-group formControlName="result">
                 <mat-radio-button value="true">Vitória</mat-radio-button>
                 <mat-radio-button style="margin-left: 10px" value="false">Derrota</mat-radio-button>
@@ -41,8 +41,7 @@
         </div>
 
         <div class="m-margin-top-large" style="text-align: center">
-            <button mat-raised-button (click)="backClick()">VOLTAR</button>
-            <button style="margin-left: 10px" type="submit" mat-raised-button color="primary">ADICIONAR</button>
+            <button type="submit" mat-raised-button color="primary">ADICIONAR</button>
         </div>
     </form>
 </div>
