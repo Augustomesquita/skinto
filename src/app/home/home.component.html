@@ -63,7 +63,7 @@
 
                     <ng-container matColumnDef="champion">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>CAMPEÃO</mat-header-cell>
-                        <mat-cell *matCellDef="let match">{{ match.champion }}</mat-cell>
+                        <mat-cell *matCellDef="let match"><img src="../../assets/img/champions/{{match.champion}}.png" alt="{{match.champion}}" title="{{match.champion}}" style="max-height: 40px" /></mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="date">
