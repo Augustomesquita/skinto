@@ -48,7 +48,8 @@ export class DialogMatchComponent implements OnInit {
   ngOnInit() {
     this.http
       .get<any>(
-        'http://ddragon.leagueoflegends.com/cdn/9.3.1/data/pt_BR/champion.json'
+        // 'http://ddragon.leagueoflegends.com/cdn/9.10.1/data/pt_BR/champion.json'
+        '../../assets/json/champion.json' // Arquivo JSON do endereço acima
       )
       .subscribe(data => {
         this.championList = Object.keys(data.data);
