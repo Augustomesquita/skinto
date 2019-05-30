@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit, OnChanges {
     private snackBar: MatSnackBar,
     private globals: Globals,
     private spinner: NgxSpinnerService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.spinner.show();
@@ -105,28 +105,9 @@ export class HomeComponent implements OnInit, OnChanges {
     this.ranking[1].score = 0;
     this.ranking[2].score = 0;
 
-    let firstThreeRegisters = 0;
-
-    let lastPlayer = this.matchs.data[0].player;
-    let streakCount = 0;
-    const streakPlayer = this.matchs.data[0].player;
-
-
     const copyMatchToOrdering = this.matchs.data;
     copyMatchToOrdering.sort(this.sortByDateAsc);
-
     copyMatchToOrdering.forEach(element => {
-      // Atualiza jogador em Hot Streak
-      if (firstThreeRegisters < 3) {
-        firstThreeRegisters++;
-        if (lastPlayer === element.player) {
-          streakCount++;
-        } else {
-          streakCount = 0;
-        }
-        lastPlayer = element.player;
-      }
-
       // Atualiza ranking
       switch (element.player) {
         case this.ranking[0].name:
@@ -144,7 +125,26 @@ export class HomeComponent implements OnInit, OnChanges {
           this.ranking[2].lastChampion = element.champion;
           break;
       }
+    });
 
+    // Atualiza jogador em Hot Streak
+    copyMatchToOrdering.sort(this.sortByDateDesc);
+    let firstThreeRegisters = 0;
+
+    let lastPlayer = copyMatchToOrdering[0].player;
+    const streakPlayer = copyMatchToOrdering[0].player;
+    let streakCount = 0;
+
+    copyMatchToOrdering.forEach(element => {
+      if (firstThreeRegisters < 3) {
+        firstThreeRegisters++;
+        if (lastPlayer === element.player) {
+          streakCount++;
+        } else {
+          streakCount = 0;
+        }
+        lastPlayer = element.player;
+      }
     });
 
     // Caso tenha havido um hot streak
@@ -197,7 +197,10 @@ export class HomeComponent implements OnInit, OnChanges {
 
   getLastChampionWinnerBG(): object {
     return {
-      background: 'url("../../assets/img/background/' + this.ranking[0].lastChampion + '_0.jpg") repeat center top',
+      background:
+        'url("../../assets/img/background/' +
+        this.ranking[0].lastChampion +
+        '_0.jpg") repeat center top',
       '-webkit-transition': 'background-image 2s ease-in-out',
       '-moz-transition': 'background-image 2s ease-in-out',
       '-o-transition': 'background-image 2s ease-in-out',
@@ -277,9 +280,11 @@ export class HomeComponent implements OnInit, OnChanges {
   paintRow(match): object {
     return {
       victory: (match.result || match.result === 'true') && !match.perfect,
-      'victory-perfect': (match.result || match.result === 'true') && match.perfect,
+      'victory-perfect':
+        (match.result || match.result === 'true') && match.perfect,
       defeat: (!match.result || match.result === 'false') && !match.perfect,
-      'defeat-perfect': (!match.result || match.result === 'false') && match.perfect,
+      'defeat-perfect':
+        (!match.result || match.result === 'false') && match.perfect
     };
   }
 }
