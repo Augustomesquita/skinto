@@ -48,6 +48,21 @@ export class HomeComponent implements OnInit, OnChanges {
     }
   ];
 
+  winners: any[] = [
+    {
+      name: 'Augusto',
+      victories: 0
+    },
+    {
+      name: 'Alexandre',
+      victories: 0
+    },
+    {
+      name: 'André',
+      victories: 0
+    }
+  ];
+
   constructor(
     public matchDialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -67,6 +82,7 @@ export class HomeComponent implements OnInit, OnChanges {
       )
       .db(this.globals.atlasDb);
     this.updateAtFixTime();
+    this.updateWinner();
   }
 
   ngOnChanges(): void {
@@ -87,6 +103,24 @@ export class HomeComponent implements OnInit, OnChanges {
       .then(docs => {
         this.matchs = new MatTableDataSource(docs as Match[]);
         this.updateRanking();
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+  updateWinner() {
+    this.client.auth
+      .loginWithCredential(new AnonymousCredential())
+      .then(() =>
+        this.db
+          .collection('winner')
+          .find()
+          .asArray()
+      )
+      .then(winner => {
+        this.winners = winner;
+        console.log(this.winners[0].victories);
       })
       .catch(err => {
         console.error(err);

@@ -39,6 +39,36 @@
                             </div>
                         </mat-grid-tile>
                     </mat-grid-list>
+
+                    <mat-grid-list cols="3" rowHeight="50px" style="margin-top: 50px; margin-bottom: 10px; border-radius: 10px; background-color: rgba(0,0,0, 0.7)">
+                        <mat-grid-tile [colspan]="3" [rowspan]="1">
+                            <div>
+                                <span><u>COMPETIÇÕES VENCIDAS</u></span>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile [colspan]="1" [rowspan]="1">
+                            <div>
+                                <span>{{ winners[0].name.toUpperCase() }}</span><br/>
+                                <span><strong>{{ winners[0].victories }}</strong></span>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile [colspan]="1" [rowspan]="1">
+                            <div>
+                                <span>{{ winners[1].name.toUpperCase() }}</span><br/>
+                                <span><strong>{{ winners[1].victories }}</strong></span>
+                            </div>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile [colspan]="1" [rowspan]="1">
+                            <div>
+                                <span>{{ winners[2].name.toUpperCase() }}</span><br/>
+                                <span><strong>{{ winners[2].victories }}</strong></span>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+
                 </ng-container>
 
                 <ng-container *ngIf="!ranking || ranking.length === 0">
